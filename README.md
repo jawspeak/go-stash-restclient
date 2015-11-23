@@ -10,7 +10,7 @@ GOPATH_source_me.sh
 
 ```bash
 echo "you should source me, not execute me! >>  source <me>"
-export GOPATH=/Users/jaw/me/Development/go-stash-restclient
+export GOPATH=/Users/jaw/me/Development/go-opensource-work
 export PATH=$PATH:$GOPATH/bin
 echo $GOPATH
 ```
@@ -18,7 +18,7 @@ echo $GOPATH
 That folder contains:
 
 ```
->ls -a /Users/jaw/me/Development/go-stash-restclient
+>ls -a /Users/jaw/me/Development/go-opensource-work
 .                       bin
 ..                      go-stash-restclient.iml
 .idea                   pkg
