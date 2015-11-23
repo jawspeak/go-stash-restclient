@@ -4,5 +4,6 @@
 {
   "host": "api.example.com",
   "username": "your-user",
+  // If password is blank, will prompt for it on the command line.
   "password": "your-pass"
 }

@@ -10,6 +10,7 @@ import (
 	httptransport "github.com/go-swagger/go-swagger/httpkit/client"
 	"github.com/go-swagger/go-swagger/spec"
 	apiclient "github.com/jawspeak/go-stash-restclient/client"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 type goStashRestClientConfig struct {
@@ -33,17 +34,30 @@ func SetupConfig() {
 		fmt.Printf("File error: %v\n", err)
 		panic(err)
 	}
-	var config goStashRestClientConfig
-	json.Unmarshal(file, &config)
-	validateRequiredField("host", &config.Host)
-	//validateRequiredField("username", config.Username)
-	//validateRequiredField("password", config.Password)
+	var conf goStashRestClientConfig
+	json.Unmarshal(file, &conf)
+	validateRequiredField("host", &conf.Host)
+	validateRequiredField("username", &conf.Username)
+	if &conf.Password == nil || len(conf.Password) == 0 {
+		fmt.Printf("Enter your password for %s: ", conf.Username)
+		bytePassword, err := terminal.ReadPassword(0)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		fmt.Println()
+		conf.Password = string(bytePassword)
+	}
+	validateRequiredField("password", &conf.Password)
 
 	doc, err := spec.New(apiclient.SwaggerJSON, "")
 	if err != nil {
 		panic(err)
 	}
+
 	transport := httptransport.New(doc)
-	transport.Host = config.Host
+	transport.Host = conf.Host
+	// Assumes basic auth. TODO enable the config.json to take different mechanisms, OR integrate with swagger spec file what it says is supported.
+	transport.DefaultAuthentication = httptransport.BasicAuth(conf.Username, conf.Password)
 	apiclient.Default.SetTransport(transport)
 }
