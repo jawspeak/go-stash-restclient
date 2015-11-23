@@ -26,16 +26,20 @@ func validateRequiredField(field string, configValue *string) {
 	}
 }
 
-func SetupConfig() {
-	file, err := ioutil.ReadFile("./config.json")
+func ParseJsonFileStripComments(filepath string, conf interface{}) {
+	file, err := ioutil.ReadFile(filepath)
 	commentStripper := regexp.MustCompile("(?s)//.*?\n|/\\*.*?\\*/")
 	file = commentStripper.ReplaceAll(file, nil)
 	if err != nil {
 		fmt.Printf("File error: %v\n", err)
 		panic(err)
 	}
-	var conf goStashRestClientConfig
 	json.Unmarshal(file, &conf)
+}
+
+func SetupConfig() {
+	var conf goStashRestClientConfig
+	ParseJsonFileStripComments("./config.json", &conf)
 	validateRequiredField("host", &conf.Host)
 	validateRequiredField("username", &conf.Username)
 	if &conf.Password == nil || len(conf.Password) == 0 {
