@@ -1,0 +1,64 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: Stash (partial) Rest API
+# host: <omitted>
+# this is omitted because you use config.json (see config.sample.json)
+basePath: /rest/api/1.0/
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  '/projects/{project}/repos/{repo}/commits':
+    get:
+      description: Returns commits for a project and repo
+      operationId: getCommits
+      parameters:
+        - type: string
+          name: project
+          in: path
+          required: true
+        - type: string
+          name: repo
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/CommitsResponse'
+
+#  '/projects/{project}/repos/{repo}/pull-requests':
+#    parameters:
+#      - type: string
+#        name: project
+#        in: path
+#        required: true
+#      - type: string
+#        name: repo
+#        in: path
+#        required: true
+ # withAttributes=false&withProperties=false&state=MERGED&username.1=jackson&role.1=AUTHOR
+
+definitions:
+  CommitsResponse:
+    type: object
+    properties:
+      values:
+        type: array
+#        items:
+#          type: string
+        # TODO
+      size:
+        type: integer
+      isLastPage:
+        type: boolean
+      start:
+        type: integer
+      limit:
+        type: integer
+      nextPageStart:
+        type: integer
