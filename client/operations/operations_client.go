@@ -39,6 +39,22 @@ func (a *Client) GetCommits(params GetCommitsParams) (*GetCommitsOK, error) {
 	return result.(*GetCommitsOK), nil
 }
 
+/*Get activities for a pull request (comments, etc)
+ */
+func (a *Client) GetPullRequestActivities(params GetPullRequestActivitiesParams) (*GetPullRequestActivitiesOK, error) {
+	// TODO: Validate the params before sending
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:     "getPullRequestActivities",
+		Params: &params,
+		Reader: &GetPullRequestActivitiesReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetPullRequestActivitiesOK), nil
+}
+
 /*Get recent pull requests.
  */
 func (a *Client) GetPullRequests(params GetPullRequestsParams) (*GetPullRequestsOK, error) {

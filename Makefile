@@ -3,6 +3,7 @@ run:
 	go run main.go config.go
 
 generate:
+	swagger validate swagger.yml
 	# specify the name to ensure we regenerate correctly.
 	swagger generate client -f swagger.yml -A stash_core_rest_api
 

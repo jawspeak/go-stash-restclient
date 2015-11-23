@@ -6,11 +6,11 @@ import "github.com/go-swagger/go-swagger/strfmt"
 // Editing this file might prove futile when you re-run the swagger generate command
 
 /*
-PullRequestsResponse pull requests response
+PullRequestActivitiesResponse pull request activities response
 
-swagger:model PullRequestsResponse
+swagger:model PullRequestActivitiesResponse
 */
-type PullRequestsResponse struct {
+type PullRequestActivitiesResponse struct {
 
 	/* IsLastPage is last page
 	 */
@@ -34,10 +34,10 @@ type PullRequestsResponse struct {
 
 	/* Values values
 	 */
-	Values []*PullRequest `json:"values,omitempty"`
+	Values []*PullRequestActivity `json:"values,omitempty"`
 }
 
-// Validate validates this pull requests response
-func (m *PullRequestsResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this pull request activities response
+func (m *PullRequestActivitiesResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }

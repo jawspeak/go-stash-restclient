@@ -48,12 +48,12 @@ paths:
           name: repo
           in: path
           required: true
+
+        # Query params
         - name: limit
           type: integer
           in: query
           description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
-
-        # Query params
         - name: start
           type: integer
           in: query
@@ -83,7 +83,48 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PullRequestsResponse'
-#  withAttributes=false&withProperties=false&state=MERGED&username.1=jackson&role.1=AUTHOR
+
+  '/projects/{project}/repos/{repo}/pull-requests/{pullRequestId}/activities':
+    get:
+      description: Get activities for a pull request (comments, etc)
+      operationId: getPullRequestActivities
+      parameters:
+        - type: string
+          name: project
+          in: path
+          required: true
+        - type: string
+          name: repo
+          in: path
+          required: true
+        - name: pullRequestId
+          in: path
+          type: integer
+          format: int64
+          required: true
+
+          # Query params
+        - name: limit
+          type: integer
+          in: query
+          description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
+        - name: fromId
+          type: integer
+          format: int64
+          in: query
+          description: id of the activity item to use as the first item in the returned page
+        - name: fromType
+          type: string
+          in: query
+          enum: ["COMMENT", "ACTIVITY"]
+          description: (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/PullRequestActivitiesResponse'
+
+
 
 definitions:
   CommitsResponse:
@@ -109,7 +150,7 @@ definitions:
       values:
         type: array
         items:
-          $ref: "#/definitions/PullRequestResponse"
+          $ref: "#/definitions/PullRequest"
       size:
         type: integer
       isLastPage:
@@ -120,11 +161,12 @@ definitions:
         type: integer
       nextPageStart:
         type: integer
-  PullRequestResponse:
+  PullRequest:
     type: object
     properties:
       id:
         type: integer
+        format: int64
       version:
         type: integer
       title:
@@ -141,6 +183,41 @@ definitions:
         format: int64
       author:
         $ref: "#/definitions/Author"
+  PullRequestActivitiesResponse:
+    type: object
+    properties:
+      values:
+        type: array
+        items:
+          $ref: "#/definitions/PullRequestActivity"
+      size:
+        type: integer
+      isLastPage:
+        type: boolean
+      start:
+        type: integer
+      limit:
+        type: integer
+      nextPageStart:
+        type: integer
+  PullRequestActivity:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      createdDate:
+        type: integer
+        format: int64
+      user:
+        $ref: '#/definitions/User'
+      action:
+        type: string
+        enum: ["COMMENTED", "OPENED", "MERGED", "APPROVED"]
+      comment:
+        $ref: '#/definitions/Comment'
+
+  # Basic things
   Author:
     type: object
     properties:
@@ -162,6 +239,8 @@ definitions:
         type: string
       slug:
         type: string
+      link:
+        $ref: '#/definitions/Link'
   Link:
     type: object
     properties:
@@ -169,5 +248,25 @@ definitions:
         type: string
       rel:
         type: string
-
-
+  Comment:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      version:
+        type: integer
+      text:
+        type: string
+      author:
+        $ref: '#/definitions/User'
+      createdDate:
+        type: integer
+        format: int64
+      updatedDate:
+        type: integer
+        format: int64
+      comments:
+        type: array
+        items:
+          $ref: '#/definitions/Comment'

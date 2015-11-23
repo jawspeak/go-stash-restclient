@@ -24,6 +24,10 @@ type User struct {
 	 */
 	ID int64 `json:"id,omitempty"`
 
+	/* Link link
+	 */
+	Link *Link `json:"link,omitempty"`
+
 	/* Name name
 	 */
 	Name string `json:"name,omitempty"`
