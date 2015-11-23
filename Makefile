@@ -1,6 +1,6 @@
 run:
 	# Exmaple how to run this.
-	go run main.go config.go
+	go run main.go
 
 generate:
 	swagger validate swagger.yml
