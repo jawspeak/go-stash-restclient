@@ -12,11 +12,11 @@ import (
 	"github.com/jawspeak/go-stash-restclient/client/operations"
 )
 
-// The Default stash partial rest API HTTP client.
+// The Default stash core rest API HTTP client.
 var Default = NewHTTPClient(nil)
 
-// NewHTTPClient creates a new stash partial rest API HTTP client.
-func NewHTTPClient(formats strfmt.Registry) *StashPartialRestAPI {
+// NewHTTPClient creates a new stash core rest API HTTP client.
+func NewHTTPClient(formats strfmt.Registry) *StashCoreRestAPI {
 	swaggerSpec, err := spec.New(SwaggerJSON, "")
 	if err != nil {
 		// the swagger spec is valid because it was used to generated this code.
@@ -28,9 +28,9 @@ func NewHTTPClient(formats strfmt.Registry) *StashPartialRestAPI {
 	return New(httptransport.New(swaggerSpec), formats)
 }
 
-// New creates a new stash partial rest API client
-func New(transport client.Transport, formats strfmt.Registry) *StashPartialRestAPI {
-	cli := new(StashPartialRestAPI)
+// New creates a new stash core rest API client
+func New(transport client.Transport, formats strfmt.Registry) *StashCoreRestAPI {
+	cli := new(StashCoreRestAPI)
 	cli.Transport = transport
 
 	cli.Operations = operations.New(transport, formats)
@@ -38,15 +38,15 @@ func New(transport client.Transport, formats strfmt.Registry) *StashPartialRestA
 	return cli
 }
 
-// StashPartialRestAPI is a client for stash partial rest API
-type StashPartialRestAPI struct {
+// StashCoreRestAPI is a client for stash core rest API
+type StashCoreRestAPI struct {
 	Operations *operations.Client
 
 	Transport client.Transport
 }
 
 // SetTransport changes the transport on the client and all its subresources
-func (c *StashPartialRestAPI) SetTransport(transport client.Transport) {
+func (c *StashCoreRestAPI) SetTransport(transport client.Transport) {
 	c.Transport = transport
 
 	c.Operations.SetTransport(transport)

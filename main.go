@@ -12,9 +12,18 @@ import (
 func main() {
 	SetupConfig()
 
-	resp, err := apiclient.Default.Operations.GetCommits(operations.GetCommitsParams{Project: "GO", Repo: "square"})
+	resp1, err := apiclient.Default.Operations.GetCommits(operations.GetCommitsParams{Project: "GO", Repo: "square"})
+	fatalIfErr(err)
+	fmt.Printf("%#v\n", resp1.Payload)
+
+	resp2, err := apiclient.Default.Operations.GetPullRequests(operations.GetPullRequestsParams{Project: "GO", Repo: "square"})
+	fatalIfErr(err)
+	fmt.Printf("%#v\n", resp2.Payload)
+}
+
+func fatalIfErr(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%#v\n", resp.Payload)
+
 }

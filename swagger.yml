@@ -1,9 +1,13 @@
 swagger: '2.0'
 info:
-  version: 0.1.0
-  title: Stash (partial) Rest API
+  # Version of Stash's Core Rest API coded against
+  version: '1.0'
+  description: Coded against https://developer.atlassian.com/static/rest/stash/3.11.2/stash-rest.html#idp96366. Partially complete, more definitions needed.
+  title: Stash Core Rest API
+
 # host: <omitted>
-# this is omitted because you use config.json (see config.sample.json)
+  # this is omitted because you use config.json (see config.sample.json)
+
 basePath: /rest/api/1.0/
 schemes:
   - https
@@ -31,27 +35,64 @@ paths:
           schema:
             $ref: '#/definitions/CommitsResponse'
 
-#  '/projects/{project}/repos/{repo}/pull-requests':
-#    parameters:
-#      - type: string
-#        name: project
-#        in: path
-#        required: true
-#      - type: string
-#        name: repo
-#        in: path
-#        required: true
- # withAttributes=false&withProperties=false&state=MERGED&username.1=jackson&role.1=AUTHOR
+  '/projects/{project}/repos/{repo}/pull-requests':
+    get:
+      description: Get recent pull requests.
+      operationId: getPullRequests
+      parameters:
+        - type: string
+          name: project
+          in: path
+          required: true
+        - type: string
+          name: repo
+          in: path
+          required: true
+        - name: limit
+          type: integer
+          in: query
+          description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
+
+        # Query params
+        - name: start
+          type: integer
+          in: query
+          description: The count of the result to start with, inclusive (I think).
+        - name: state
+          type: string
+          in: query
+          enum: ["OPEN", "DECLINED", "MERGED", "ALL"]
+          default: ALL
+        - name: username.1
+          type: string
+          in: query
+        - name: role.1
+          type: string
+          in: query
+          enum: ["AUTHOR", "REVIEWER", "PARTICIPANT"]
+        - name: username.2
+          type: string
+          in: query
+        - name: role.2
+          type: string
+          in: query
+          enum: ["AUTHOR", "REVIEWER", "PARTICIPANT"]
+        # Not listing out the others, but supports N from 1 to 10 for each of the above.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/PullRequestsResponse'
+#  withAttributes=false&withProperties=false&state=MERGED&username.1=jackson&role.1=AUTHOR
 
 definitions:
   CommitsResponse:
     type: object
     properties:
-      values:
-        type: array
-#        items:
-#          type: string
-        # TODO
+# TODO incomplete for now. Will do when I need it.
+#      values:
+#        type: array
+#        items: TODO
       size:
         type: integer
       isLastPage:
@@ -62,3 +103,71 @@ definitions:
         type: integer
       nextPageStart:
         type: integer
+  PullRequestsResponse:
+    type: object
+    properties:
+      values:
+        type: array
+        items:
+          $ref: "#/definitions/PullRequestResponse"
+      size:
+        type: integer
+      isLastPage:
+        type: boolean
+      start:
+        type: integer
+      limit:
+        type: integer
+      nextPageStart:
+        type: integer
+  PullRequestResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+      version:
+        type: integer
+      title:
+        type: string
+      description:
+        type: string
+      state:
+        type: string
+      createdDate:
+        type: integer
+        format: int64
+      updatedDate:
+        type: integer
+        format: int64
+      author:
+        $ref: "#/definitions/Author"
+  Author:
+    type: object
+    properties:
+      user:
+        $ref: "#/definitions/User"
+      role:
+        type: string
+        enum: ["AUTHOR"]
+  User:
+    type: object
+    properties:
+      name:
+        type: string
+      emailAddress:
+        type: string
+      id:
+        type: integer
+      displayName:
+        type: string
+      slug:
+        type: string
+  Link:
+    type: object
+    properties:
+      url:
+        type: string
+      rel:
+        type: string
+
+

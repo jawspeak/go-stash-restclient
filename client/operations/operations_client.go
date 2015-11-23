@@ -39,6 +39,22 @@ func (a *Client) GetCommits(params GetCommitsParams) (*GetCommitsOK, error) {
 	return result.(*GetCommitsOK), nil
 }
 
+/*Get recent pull requests.
+ */
+func (a *Client) GetPullRequests(params GetPullRequestsParams) (*GetPullRequestsOK, error) {
+	// TODO: Validate the params before sending
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:     "getPullRequests",
+		Params: &params,
+		Reader: &GetPullRequestsReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetPullRequestsOK), nil
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport client.Transport) {
 	a.transport = transport
