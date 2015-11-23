@@ -20,9 +20,9 @@ type Comment struct {
 	 */
 	Comments []*Comment `json:"comments,omitempty"`
 
-	/* CreatedDate created date
+	/* CreatedDatetime created datetime
 	 */
-	CreatedDate int64 `json:"createdDate,omitempty"`
+	CreatedDatetime int64 `json:"createdDatetime,omitempty"`
 
 	/* ID id
 	 */
@@ -32,9 +32,9 @@ type Comment struct {
 	 */
 	Text string `json:"text,omitempty"`
 
-	/* UpdatedDate updated date
+	/* UpdatedDatetime updated datetime
 	 */
-	UpdatedDate int64 `json:"updatedDate,omitempty"`
+	UpdatedDatetime int64 `json:"updatedDatetime,omitempty"`
 
 	/* Version version
 	 */

@@ -175,10 +175,10 @@ definitions:
         type: string
       state:
         type: string
-      createdDate:
+      createdDatetime:
         type: integer
         format: int64
-      updatedDate:
+      updatedDatetime:
         type: integer
         format: int64
       author:
@@ -206,7 +206,7 @@ definitions:
       id:
         type: integer
         format: int64
-      createdDate:
+      createdDatetime:
         type: integer
         format: int64
       user:
@@ -260,10 +260,10 @@ definitions:
         type: string
       author:
         $ref: '#/definitions/User'
-      createdDate:
+      createdDatetime:
         type: integer
         format: int64
-      updatedDate:
+      updatedDatetime:
         type: integer
         format: int64
       comments:

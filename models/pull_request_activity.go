@@ -26,9 +26,9 @@ type PullRequestActivity struct {
 	 */
 	Comment *Comment `json:"comment,omitempty"`
 
-	/* CreatedDate created date
+	/* CreatedDatetime created datetime
 	 */
-	CreatedDate int64 `json:"createdDate,omitempty"`
+	CreatedDatetime int64 `json:"createdDatetime,omitempty"`
 
 	/* ID id
 	 */
