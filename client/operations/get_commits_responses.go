@@ -60,9 +60,15 @@ func (o *GetCommitsOK) readResponse(response client.Response, consumer httpkit.C
 Not Found
 */
 type GetCommitsNotFound struct {
+	Payload models.NotFound
 }
 
 func (o *GetCommitsNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -38,6 +38,8 @@ paths:
             $ref: '#/definitions/CommitsResponse'
         '404':
           description: Not Found
+          schema:
+            $ref: '#/definitions/NotFound'
 
   '/projects/{project}/repos/{repo}/pull-requests':
     get:
@@ -88,6 +90,8 @@ paths:
             $ref: '#/definitions/PullRequestsResponse'
         '404':
           description: Not Found
+          schema:
+            $ref: '#/definitions/NotFound'
 
   '/projects/{project}/repos/{repo}/pull-requests/{pullRequestId}/activities':
     get:
@@ -130,9 +134,13 @@ paths:
             $ref: '#/definitions/PullRequestActivitiesResponse'
         '404':
           description: Not Found
+          schema:
+            $ref: '#/definitions/NotFound'
 
 
 definitions:
+  NotFound:
+    type: object
   CommitsResponse:
     type: object
     properties:

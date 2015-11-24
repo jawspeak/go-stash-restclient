@@ -60,9 +60,15 @@ func (o *GetPullRequestActivitiesOK) readResponse(response client.Response, cons
 Not Found
 */
 type GetPullRequestActivitiesNotFound struct {
+	Payload models.NotFound
 }
 
 func (o *GetPullRequestActivitiesNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil {
+		return err
+	}
 
 	return nil
 }
