@@ -36,6 +36,8 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/CommitsResponse'
+        '404':
+          description: Not Found
 
   '/projects/{project}/repos/{repo}/pull-requests':
     get:
@@ -64,7 +66,6 @@ paths:
           type: string
           in: query
           enum: ["OPEN", "DECLINED", "MERGED", "ALL"]
-          default: ALL
         - name: username.1
           type: string
           in: query
@@ -85,6 +86,8 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PullRequestsResponse'
+        '404':
+          description: Not Found
 
   '/projects/{project}/repos/{repo}/pull-requests/{pullRequestId}/activities':
     get:
@@ -125,7 +128,8 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PullRequestActivitiesResponse'
-
+        '404':
+          description: Not Found
 
 
 definitions:

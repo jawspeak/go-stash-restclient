@@ -25,6 +25,13 @@ func (o *GetCommitsReader) ReadResponse(response client.Response, consumer httpk
 		}
 		return &result, nil
 
+	case 404:
+		var result GetCommitsNotFound
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, NewAPIError("getCommitsNotFound", &result, response.Code())
+
 	default:
 		return nil, NewAPIError("unknown error", response, response.Code())
 	}
@@ -45,6 +52,17 @@ func (o *GetCommitsOK) readResponse(response client.Response, consumer httpkit.C
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+/*
+Not Found
+*/
+type GetCommitsNotFound struct {
+}
+
+func (o *GetCommitsNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

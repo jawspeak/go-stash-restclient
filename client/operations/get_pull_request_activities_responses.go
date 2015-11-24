@@ -25,6 +25,13 @@ func (o *GetPullRequestActivitiesReader) ReadResponse(response client.Response, 
 		}
 		return &result, nil
 
+	case 404:
+		var result GetPullRequestActivitiesNotFound
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, NewAPIError("getPullRequestActivitiesNotFound", &result, response.Code())
+
 	default:
 		return nil, NewAPIError("unknown error", response, response.Code())
 	}
@@ -45,6 +52,17 @@ func (o *GetPullRequestActivitiesOK) readResponse(response client.Response, cons
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+/*
+Not Found
+*/
+type GetPullRequestActivitiesNotFound struct {
+}
+
+func (o *GetPullRequestActivitiesNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
