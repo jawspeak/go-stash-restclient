@@ -16,9 +16,9 @@ type PullRequest struct {
 	 */
 	Author *Author `json:"author,omitempty"`
 
-	/* CreatedDatetime created datetime
+	/* CreatedDate created date
 	 */
-	CreatedDatetime int64 `json:"createdDatetime,omitempty"`
+	CreatedDate int64 `json:"createdDate,omitempty"`
 
 	/* Description description
 	 */
@@ -36,9 +36,9 @@ type PullRequest struct {
 	 */
 	Title string `json:"title,omitempty"`
 
-	/* UpdatedDatetime updated datetime
+	/* UpdatedDate updated date
 	 */
-	UpdatedDatetime int64 `json:"updatedDatetime,omitempty"`
+	UpdatedDate int64 `json:"updatedDate,omitempty"`
 
 	/* Version version
 	 */
