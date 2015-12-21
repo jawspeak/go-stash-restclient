@@ -60,19 +60,23 @@ paths:
           type: string
           enum: ["OLDEST", "NEWEST"]
           in: query
+          allowEmptyValue: true
           description: NEWEST is as in newest first.
         - name: limit
           type: integer
           in: query
+          allowEmptyValue: true
           description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
         - name: start
           type: integer
           in: query
+          allowEmptyValue: true
           description: The count of the result to start with, inclusive (I think).
         - name: state
           type: string
           in: query
           enum: ["OPEN", "DECLINED", "MERGED", "ALL"]
+          allowEmptyValue: true
           description: You probably want to include this in, and probably as ALL to see everything (which you won't by default).
         - name: username.1
           type: string
@@ -81,13 +85,16 @@ paths:
           type: string
           in: query
           enum: ["AUTHOR", "REVIEWER", "PARTICIPANT"]
+          allowEmptyValue: true
         - name: username.2
           type: string
           in: query
+          allowEmptyValue: true
         - name: role.2
           type: string
           in: query
           enum: ["AUTHOR", "REVIEWER", "PARTICIPANT"]
+          allowEmptyValue: true
         # Not listing out the others, but supports N from 1 to 10 for each of the above.
       responses:
         '200':
@@ -122,14 +129,17 @@ paths:
         - name: limit
           type: integer
           in: query
+          allowEmptyValue: true
           description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
         - name: fromId
           type: integer
           format: int64
+          allowEmptyValue: true
           in: query
           description: id of the activity item to use as the first item in the returned page
         - name: fromType
           type: string
+          allowEmptyValue: true
           in: query
           enum: ["COMMENT", "ACTIVITY"]
           description: (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)

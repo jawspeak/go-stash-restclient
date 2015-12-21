@@ -19,17 +19,17 @@ type GetPullRequestActivitiesParams struct {
 	  id of the activity item to use as the first item in the returned page
 
 	*/
-	FromID int64
+	FromID *int64
 	/*FromType
 	  (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)
 
 	*/
-	FromType string
+	FromType *string
 	/*Limit
 	  Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
 
 	*/
-	Limit int64
+	Limit *int64
 	/*Project*/
 	Project string
 	/*PullRequestID*/
@@ -44,30 +44,33 @@ func (o *GetPullRequestActivitiesParams) WriteToRequest(r client.Request, reg st
 	var res []error
 
 	// query param fromId
-	qrFromID := o.FromID
+	var qrFromID int64
+	if o.FromID != nil {
+		qrFromID = *o.FromID
+	}
 	qFromID := swag.FormatInt64(qrFromID)
-	if qFromID != "" {
-		if err := r.SetQueryParam("fromId", qFromID); err != nil {
-			return err
-		}
+	if err := r.SetQueryParam("fromId", qFromID); err != nil {
+		return err
 	}
 
 	// query param fromType
-	qrFromType := o.FromType
+	var qrFromType string
+	if o.FromType != nil {
+		qrFromType = *o.FromType
+	}
 	qFromType := qrFromType
-	if qFromType != "" {
-		if err := r.SetQueryParam("fromType", qFromType); err != nil {
-			return err
-		}
+	if err := r.SetQueryParam("fromType", qFromType); err != nil {
+		return err
 	}
 
 	// query param limit
-	qrLimit := o.Limit
+	var qrLimit int64
+	if o.Limit != nil {
+		qrLimit = *o.Limit
+	}
 	qLimit := swag.FormatInt64(qrLimit)
-	if qLimit != "" {
-		if err := r.SetQueryParam("limit", qLimit); err != nil {
-			return err
-		}
+	if err := r.SetQueryParam("limit", qLimit); err != nil {
+		return err
 	}
 
 	// path param project
