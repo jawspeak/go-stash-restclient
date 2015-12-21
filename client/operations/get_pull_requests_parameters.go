@@ -44,7 +44,7 @@ type GetPullRequestsParams struct {
 	*/
 	State *string
 	/*Username1*/
-	Username1 string
+	Username1 *string
 	/*Username2*/
 	Username2 *string
 }
@@ -125,12 +125,13 @@ func (o *GetPullRequestsParams) WriteToRequest(r client.Request, reg strfmt.Regi
 	}
 
 	// query param username.1
-	qrUsername1 := o.Username1
+	var qrUsername1 string
+	if o.Username1 != nil {
+		qrUsername1 = *o.Username1
+	}
 	qUsername1 := qrUsername1
-	if qUsername1 != "" {
-		if err := r.SetQueryParam("username.1", qUsername1); err != nil {
-			return err
-		}
+	if err := r.SetQueryParam("username.1", qUsername1); err != nil {
+		return err
 	}
 
 	// query param username.2

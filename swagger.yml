@@ -59,32 +59,33 @@ paths:
         - name: order
           type: string
           enum: ["OLDEST", "NEWEST"]
+          description: NEWEST is as in newest first.
           in: query
           allowEmptyValue: true
-          description: NEWEST is as in newest first.
         - name: limit
           type: integer
+          description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
           in: query
           allowEmptyValue: true
-          description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
         - name: start
           type: integer
+          description: The count of the result to start with, inclusive (I think).
           in: query
           allowEmptyValue: true
-          description: The count of the result to start with, inclusive (I think).
         - name: state
           type: string
-          in: query
           enum: ["OPEN", "DECLINED", "MERGED", "ALL"]
-          allowEmptyValue: true
           description: You probably want to include this in, and probably as ALL to see everything (which you won't by default).
+          in: query
+          allowEmptyValue: true
         - name: username.1
           type: string
           in: query
+          allowEmptyValue: true
         - name: role.1
           type: string
-          in: query
           enum: ["AUTHOR", "REVIEWER", "PARTICIPANT"]
+          in: query
           allowEmptyValue: true
         - name: username.2
           type: string
