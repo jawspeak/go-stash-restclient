@@ -100,8 +100,10 @@ func (o *GetPullRequestsParams) WriteToRequest(r client.Request, reg strfmt.Regi
 		qrRole2 = *o.Role2
 	}
 	qRole2 := qrRole2
-	if err := r.SetQueryParam("role.2", qRole2); err != nil {
-		return err
+	if o.Role2 != nil {
+		if err := r.SetQueryParam("role.2", qRole2); err != nil {
+			return err
+		}
 	}
 
 	// query param start
@@ -140,8 +142,10 @@ func (o *GetPullRequestsParams) WriteToRequest(r client.Request, reg strfmt.Regi
 		qrUsername2 = *o.Username2
 	}
 	qUsername2 := qrUsername2
-	if err := r.SetQueryParam("username.2", qUsername2); err != nil {
-		return err
+	if o.Username2 != nil {
+		if err := r.SetQueryParam("username.2", qUsername2); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

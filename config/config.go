@@ -74,7 +74,7 @@ func SetupConfig() {
 	fmt.Println("using host", conf.Host)
 
 	// Helpful to debug
-	transport.Debug = true
+	//	transport.Debug = true
 
 	// Assumes basic auth. TODO enable the config.json to take different mechanisms, OR integrate with swagger spec file what it says is supported.
 	transport.DefaultAuthentication = httptransport.BasicAuth(conf.Username, conf.Password)

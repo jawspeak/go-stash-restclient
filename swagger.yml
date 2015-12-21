@@ -132,18 +132,19 @@ paths:
           in: query
           allowEmptyValue: true
           description: Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
-        - name: fromId
-          type: integer
-          format: int64
-          allowEmptyValue: true
-          in: query
-          description: id of the activity item to use as the first item in the returned page
-        - name: fromType
-          type: string
-          allowEmptyValue: true
-          in: query
-          enum: ["COMMENT", "ACTIVITY"]
-          description: (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)
+# Commented out because it isn't working in the codegen'd client - is sending the value even though it is nil (or 0 in the fromId case).
+#        - name: fromId
+#          type: integer
+#          format: int64
+#          allowEmptyValue: true
+#          in: query
+#          description: id of the activity item to use as the first item in the returned page
+#        - name: fromType
+#          type: string
+#          allowEmptyValue: true
+#          in: query
+#          enum: ["COMMENT", "ACTIVITY"]
+#          description: (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)
       responses:
         '200':
           description: Success
@@ -214,6 +215,16 @@ definitions:
         format: int64
       author:
         $ref: "#/definitions/Author"
+      links:
+        type: object
+        properties:
+          self:
+            type: array
+            items:
+              type: object
+              properties:
+                href:
+                  type: string
   PullRequestActivitiesResponse:
     type: object
     properties:

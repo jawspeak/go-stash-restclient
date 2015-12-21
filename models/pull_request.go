@@ -27,6 +27,10 @@ type PullRequest struct {
 	 */
 	ID int64 `json:"id,omitempty"`
 
+	/* Links links
+	 */
+	Links *PullRequestLinks `json:"links,omitempty"`
+
 	/* State state
 	 */
 	State string `json:"state,omitempty"`
@@ -46,5 +50,37 @@ type PullRequest struct {
 
 // Validate validates this pull request
 func (m *PullRequest) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+/*PullRequestLinks pull request links
+
+swagger:model PullRequestLinks
+*/
+type PullRequestLinks struct {
+
+	/* Self self
+	 */
+	Self []*PullRequestSelfItems0 `json:"self,omitempty"`
+}
+
+// Validate validates this pull request links
+func (m *PullRequestLinks) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+/*PullRequestSelfItems0 pull request self items0
+
+swagger:model PullRequestSelfItems0
+*/
+type PullRequestSelfItems0 struct {
+
+	/* Href href
+	 */
+	Href string `json:"href,omitempty"`
+}
+
+// Validate validates this pull request self items0
+func (m *PullRequestSelfItems0) Validate(formats strfmt.Registry) error {
 	return nil
 }

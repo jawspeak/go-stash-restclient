@@ -15,16 +15,6 @@ for the get pull request activities operation typically these are written to a h
 */
 type GetPullRequestActivitiesParams struct {
 
-	/*FromID
-	  id of the activity item to use as the first item in the returned page
-
-	*/
-	FromID *int64
-	/*FromType
-	  (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)
-
-	*/
-	FromType *string
 	/*Limit
 	  Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
 
@@ -42,26 +32,6 @@ type GetPullRequestActivitiesParams struct {
 func (o *GetPullRequestActivitiesParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
 
 	var res []error
-
-	// query param fromId
-	var qrFromID int64
-	if o.FromID != nil {
-		qrFromID = *o.FromID
-	}
-	qFromID := swag.FormatInt64(qrFromID)
-	if err := r.SetQueryParam("fromId", qFromID); err != nil {
-		return err
-	}
-
-	// query param fromType
-	var qrFromType string
-	if o.FromType != nil {
-		qrFromType = *o.FromType
-	}
-	qFromType := qrFromType
-	if err := r.SetQueryParam("fromType", qFromType); err != nil {
-		return err
-	}
 
 	// query param limit
 	var qrLimit int64
