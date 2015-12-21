@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	filepath "path/filepath"
 	"regexp"
 
 	httptransport "github.com/go-swagger/go-swagger/httpkit/client"
@@ -26,14 +27,23 @@ func validateRequiredField(field string, configValue *string) {
 	}
 }
 
-func ParseJsonFileStripComments(filepath string, conf interface{}) {
-	file, err := ioutil.ReadFile(filepath)
-	commentStripper := regexp.MustCompile("(?s)//.*?\n|/\\*.*?\\*/")
-	file = commentStripper.ReplaceAll(file, nil)
+func ParseJsonFileStripComments(path string, conf interface{}) {
+	abspath, err := filepath.Abs(path)
+	if err != nil {
+		panic(err)
+	}
+	wd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("read file: ", path, " working dir: ", wd, " absolute path: ", abspath)
+	file, err := ioutil.ReadFile(path)
 	if err != nil {
 		fmt.Printf("File error: %v\n", err)
 		panic(err)
 	}
+	commentStripper := regexp.MustCompile("(?s)//.*?\n|/\\*.*?\\*/")
+	file = commentStripper.ReplaceAll(file, nil)
 	json.Unmarshal(file, &conf)
 }
 
@@ -61,6 +71,7 @@ func SetupConfig() {
 
 	transport := httptransport.New(doc)
 	transport.Host = conf.Host
+	fmt.Println("using host", conf.Host)
 	// Assumes basic auth. TODO enable the config.json to take different mechanisms, OR integrate with swagger spec file what it says is supported.
 	transport.DefaultAuthentication = httptransport.BasicAuth(conf.Username, conf.Password)
 	apiclient.Default.SetTransport(transport)

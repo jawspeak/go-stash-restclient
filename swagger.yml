@@ -244,14 +244,17 @@ definitions:
     type: object
     properties:
       name:
+        description: "e.g. short ldap name"
         type: string
       emailAddress:
         type: string
       id:
         type: integer
       displayName:
+        description: "e.g. John Smith"
         type: string
       slug:
+        description: "e.g. ldap name"
         type: string
       link:
         $ref: '#/definitions/Link'
