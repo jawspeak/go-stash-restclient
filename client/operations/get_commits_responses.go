@@ -37,7 +37,8 @@ func (o *GetCommitsReader) ReadResponse(response client.Response, consumer httpk
 	}
 }
 
-/*
+/*GetCommitsOK
+
 Success
 */
 type GetCommitsOK struct {
@@ -56,7 +57,8 @@ func (o *GetCommitsOK) readResponse(response client.Response, consumer httpkit.C
 	return nil
 }
 
-/*
+/*GetCommitsNotFound
+
 Not Found
 */
 type GetCommitsNotFound struct {

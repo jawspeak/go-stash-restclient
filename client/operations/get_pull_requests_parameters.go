@@ -10,33 +10,43 @@ import (
 	"github.com/go-swagger/go-swagger/swag"
 )
 
-/*
-GetPullRequestsParams contains all the parameters to send to the API endpoint
+/*GetPullRequestsParams contains all the parameters to send to the API endpoint
 for the get pull requests operation typically these are written to a http.Request
 */
 type GetPullRequestsParams struct {
-	/*
+
+	/*Limit
 	  Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
-	*/
-	Limit *int64
 
+	*/
+	Limit int64
+	/*Order
+	  NEWEST is as in newest first.
+
+	*/
+	Order string
+	/*Project*/
 	Project string
-
+	/*Repo*/
 	Repo string
-
-	Role1 *string
-
-	Role2 *string
-	/*
+	/*Role1*/
+	Role1 string
+	/*Role2*/
+	Role2 string
+	/*Start
 	  The count of the result to start with, inclusive (I think).
+
 	*/
-	Start *int64
+	Start int64
+	/*State
+	  You probably want to include this in, and probably as ALL to see everything (which you won't by default).
 
-	State *string
-
-	Username1 *string
-
-	Username2 *string
+	*/
+	State string
+	/*Username1*/
+	Username1 string
+	/*Username2*/
+	Username2 string
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -44,13 +54,22 @@ func (o *GetPullRequestsParams) WriteToRequest(r client.Request, reg strfmt.Regi
 
 	var res []error
 
-	if o.Limit != nil {
-
-		// query param limit
-		if err := r.SetQueryParam("limit", swag.FormatInt64(*o.Limit)); err != nil {
+	// query param limit
+	qrLimit := o.Limit
+	qLimit := swag.FormatInt64(qrLimit)
+	if qLimit != "" {
+		if err := r.SetQueryParam("limit", qLimit); err != nil {
 			return err
 		}
+	}
 
+	// query param order
+	qrOrder := o.Order
+	qOrder := qrOrder
+	if qOrder != "" {
+		if err := r.SetQueryParam("order", qOrder); err != nil {
+			return err
+		}
 	}
 
 	// path param project
@@ -63,58 +82,58 @@ func (o *GetPullRequestsParams) WriteToRequest(r client.Request, reg strfmt.Regi
 		return err
 	}
 
-	if o.Role1 != nil {
-
-		// query param role.1
-		if err := r.SetQueryParam("role.1", *o.Role1); err != nil {
+	// query param role.1
+	qrRole1 := o.Role1
+	qRole1 := qrRole1
+	if qRole1 != "" {
+		if err := r.SetQueryParam("role.1", qRole1); err != nil {
 			return err
 		}
-
 	}
 
-	if o.Role2 != nil {
-
-		// query param role.2
-		if err := r.SetQueryParam("role.2", *o.Role2); err != nil {
+	// query param role.2
+	qrRole2 := o.Role2
+	qRole2 := qrRole2
+	if qRole2 != "" {
+		if err := r.SetQueryParam("role.2", qRole2); err != nil {
 			return err
 		}
-
 	}
 
-	if o.Start != nil {
-
-		// query param start
-		if err := r.SetQueryParam("start", swag.FormatInt64(*o.Start)); err != nil {
+	// query param start
+	qrStart := o.Start
+	qStart := swag.FormatInt64(qrStart)
+	if qStart != "" {
+		if err := r.SetQueryParam("start", qStart); err != nil {
 			return err
 		}
-
 	}
 
-	if o.State != nil {
-
-		// query param state
-		if err := r.SetQueryParam("state", *o.State); err != nil {
+	// query param state
+	qrState := o.State
+	qState := qrState
+	if qState != "" {
+		if err := r.SetQueryParam("state", qState); err != nil {
 			return err
 		}
-
 	}
 
-	if o.Username1 != nil {
-
-		// query param username.1
-		if err := r.SetQueryParam("username.1", *o.Username1); err != nil {
+	// query param username.1
+	qrUsername1 := o.Username1
+	qUsername1 := qrUsername1
+	if qUsername1 != "" {
+		if err := r.SetQueryParam("username.1", qUsername1); err != nil {
 			return err
 		}
-
 	}
 
-	if o.Username2 != nil {
-
-		// query param username.2
-		if err := r.SetQueryParam("username.2", *o.Username2); err != nil {
+	// query param username.2
+	qrUsername2 := o.Username2
+	qUsername2 := qrUsername2
+	if qUsername2 != "" {
+		if err := r.SetQueryParam("username.2", qUsername2); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

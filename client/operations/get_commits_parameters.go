@@ -9,13 +9,14 @@ import (
 	"github.com/go-swagger/go-swagger/strfmt"
 )
 
-/*
-GetCommitsParams contains all the parameters to send to the API endpoint
+/*GetCommitsParams contains all the parameters to send to the API endpoint
 for the get commits operation typically these are written to a http.Request
 */
 type GetCommitsParams struct {
-	Project string
 
+	/*Project*/
+	Project string
+	/*Repo*/
 	Repo string
 }
 

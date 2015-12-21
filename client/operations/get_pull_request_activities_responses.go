@@ -37,7 +37,8 @@ func (o *GetPullRequestActivitiesReader) ReadResponse(response client.Response, 
 	}
 }
 
-/*
+/*GetPullRequestActivitiesOK
+
 Success
 */
 type GetPullRequestActivitiesOK struct {
@@ -56,7 +57,8 @@ func (o *GetPullRequestActivitiesOK) readResponse(response client.Response, cons
 	return nil
 }
 
-/*
+/*GetPullRequestActivitiesNotFound
+
 Not Found
 */
 type GetPullRequestActivitiesNotFound struct {

@@ -56,6 +56,11 @@ paths:
           required: true
 
         # Query params
+        - name: order
+          type: string
+          enum: ["OLDEST", "NEWEST"]
+          in: query
+          description: NEWEST is as in newest first.
         - name: limit
           type: integer
           in: query
@@ -68,6 +73,7 @@ paths:
           type: string
           in: query
           enum: ["OPEN", "DECLINED", "MERGED", "ALL"]
+          description: You probably want to include this in, and probably as ALL to see everything (which you won't by default).
         - name: username.1
           type: string
           in: query

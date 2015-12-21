@@ -11,8 +11,7 @@ import (
 	"github.com/go-swagger/go-swagger/strfmt"
 )
 
-/*
-Author author
+/*Author author
 
 swagger:model Author
 */
@@ -32,6 +31,7 @@ func (m *Author) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateRole(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -53,7 +53,10 @@ func (m *Author) validateRoleEnum(path, location string, value string) error {
 			authorRoleEnum = append(authorRoleEnum, v)
 		}
 	}
-	return validate.Enum(path, location, value, authorRoleEnum)
+	if err := validate.Enum(path, location, value, authorRoleEnum); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (m *Author) validateRole(formats strfmt.Registry) error {

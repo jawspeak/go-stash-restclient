@@ -10,28 +10,31 @@ import (
 	"github.com/go-swagger/go-swagger/swag"
 )
 
-/*
-GetPullRequestActivitiesParams contains all the parameters to send to the API endpoint
+/*GetPullRequestActivitiesParams contains all the parameters to send to the API endpoint
 for the get pull request activities operation typically these are written to a http.Request
 */
 type GetPullRequestActivitiesParams struct {
-	/*
+
+	/*FromID
 	  id of the activity item to use as the first item in the returned page
+
 	*/
-	FromID *int64
-	/*
+	FromID int64
+	/*FromType
 	  (required if fromId is present) the type of the activity item specified by fromId (either COMMENT or ACTIVITY)
+
 	*/
-	FromType *string
-	/*
+	FromType string
+	/*Limit
 	  Probably defaults to 25. It is a best practice to check the limit attribute on the response to see what limit has been applied.
+
 	*/
-	Limit *int64
-
+	Limit int64
+	/*Project*/
 	Project string
-
+	/*PullRequestID*/
 	PullRequestID int64
-
+	/*Repo*/
 	Repo string
 }
 
@@ -40,31 +43,31 @@ func (o *GetPullRequestActivitiesParams) WriteToRequest(r client.Request, reg st
 
 	var res []error
 
-	if o.FromID != nil {
-
-		// query param fromId
-		if err := r.SetQueryParam("fromId", swag.FormatInt64(*o.FromID)); err != nil {
+	// query param fromId
+	qrFromID := o.FromID
+	qFromID := swag.FormatInt64(qrFromID)
+	if qFromID != "" {
+		if err := r.SetQueryParam("fromId", qFromID); err != nil {
 			return err
 		}
-
 	}
 
-	if o.FromType != nil {
-
-		// query param fromType
-		if err := r.SetQueryParam("fromType", *o.FromType); err != nil {
+	// query param fromType
+	qrFromType := o.FromType
+	qFromType := qrFromType
+	if qFromType != "" {
+		if err := r.SetQueryParam("fromType", qFromType); err != nil {
 			return err
 		}
-
 	}
 
-	if o.Limit != nil {
-
-		// query param limit
-		if err := r.SetQueryParam("limit", swag.FormatInt64(*o.Limit)); err != nil {
+	// query param limit
+	qrLimit := o.Limit
+	qLimit := swag.FormatInt64(qrLimit)
+	if qLimit != "" {
+		if err := r.SetQueryParam("limit", qLimit); err != nil {
 			return err
 		}
-
 	}
 
 	// path param project

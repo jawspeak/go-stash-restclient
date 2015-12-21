@@ -11,8 +11,7 @@ import (
 	"github.com/go-swagger/go-swagger/strfmt"
 )
 
-/*
-PullRequestActivity pull request activity
+/*PullRequestActivity pull request activity
 
 swagger:model PullRequestActivity
 */
@@ -44,6 +43,7 @@ func (m *PullRequestActivity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAction(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -65,7 +65,10 @@ func (m *PullRequestActivity) validateActionEnum(path, location string, value st
 			pullRequestActivityActionEnum = append(pullRequestActivityActionEnum, v)
 		}
 	}
-	return validate.Enum(path, location, value, pullRequestActivityActionEnum)
+	if err := validate.Enum(path, location, value, pullRequestActivityActionEnum); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (m *PullRequestActivity) validateAction(formats strfmt.Registry) error {

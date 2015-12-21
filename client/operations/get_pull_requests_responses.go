@@ -37,7 +37,8 @@ func (o *GetPullRequestsReader) ReadResponse(response client.Response, consumer 
 	}
 }
 
-/*
+/*GetPullRequestsOK
+
 Success
 */
 type GetPullRequestsOK struct {
@@ -56,7 +57,8 @@ func (o *GetPullRequestsOK) readResponse(response client.Response, consumer http
 	return nil
 }
 
-/*
+/*GetPullRequestsNotFound
+
 Not Found
 */
 type GetPullRequestsNotFound struct {
